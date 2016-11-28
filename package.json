@@ -1,0 +1,14 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "dependencies": {
+    "lodash": "^4.17.2",
+    "swagger-parser": "^3.4.1"
+  },
+  "devDependencies": {
+    "iron-node": "^3.0.15"
+  },
+  "scripts": {
+    "debug": "iron-node generator.js"
+  }
+}
