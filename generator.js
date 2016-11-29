@@ -6,7 +6,6 @@ const parser = new sw();
 
 const conf = require('./config.json');
 
-separator();
 parseSwaggerSpec();
 
 function parseSwaggerSpec() {
@@ -24,24 +23,18 @@ function parseSwaggerSpec() {
       getPaths(api.paths);
     })
     .catch(err => {
-      separator();
       console.log('Ha ocurrido un error');
-      separator();
       throw err;
     });
 }
 
-function separator() {
-  console.log(new Array(100).join("="));
-}
-
 function getPaths(paths) {
+  setUrlMethod(paths);
   normalizeKeys(paths);
   reorganize(paths);
   purgue(paths, conf.purgeList);
 
-  separator();
-  console.log('Escribiendo archivo apiConf.json');
+  console.log('Escribiendo archivo apiPath.json');
   fs.writeFileSync(conf.apiPathgDest, JSON.stringify(paths, null, 2));
 }
 
@@ -64,7 +57,9 @@ function reorganize(obj) {
     let newObj = {
       objIterator: {}
     };
+
     let auxObj = newObj.objIterator;
+
     key.split('.').forEach(keyPartial => {
       if (!auxObj[keyPartial]) auxObj[keyPartial] = {};
       auxObj = auxObj[keyPartial];
@@ -74,6 +69,16 @@ function reorganize(obj) {
     _.assign(auxObj, obj[key]);
     delete obj[key];
     _.merge(obj, newObj);
+  });
+}
+
+function setUrlMethod(obj) {
+  let urls = Object.keys(obj);
+  Object.keys(obj).forEach((key, index) => {
+    Object.keys(obj[key]).forEach(method => {
+      obj[key][method].url    = urls[index].replace(/\/{.*}$/, '');
+      obj[key][method].method = method.toUpperCase();
+    });
   });
 }
 
@@ -94,7 +99,6 @@ function getApiConfig(api) {
   let apiConf = {};
   if (api.host) apiConf.host = api.host;
   if (api.basePath) apiConf.basePath = api.basePath;
-  separator();
   console.log('Escribiendo archivo apiConf.json');
   fs.writeFileSync(conf.apiConfigDest, JSON.stringify(apiConf, null, 2));
 }

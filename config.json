@@ -1,9 +1,5 @@
 {
   "swaggerFileSource": "./complete-example.yaml",
-  "editorPathYaml": "./swagger-editor/spec-files/result.yaml",
-  "jsonResultPath": "./result.json",
-  "yamlResultPath": "./result.yaml",
-  "watchFolder": "petstore-separate",
   "apiConfigDest": "./apiConf.json",
   "apiPathgDest": "./apiPath.json",
   "purgeList": [
