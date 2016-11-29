@@ -5,5 +5,15 @@
   "yamlResultPath": "./result.yaml",
   "watchFolder": "petstore-separate",
   "apiConfigDest": "./apiConf.json",
-  "apiPathgDest": "./apiPath.json"
+  "apiPathgDest": "./apiPath.json",
+  "purgeList": [
+    "tags",
+    "summary",
+    "description",
+    "operationId",
+    "produces",
+    "example",
+    "responses",
+    "security"
+  ]
 }
