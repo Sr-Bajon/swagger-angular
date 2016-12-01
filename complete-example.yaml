@@ -18,6 +18,9 @@ host: petstore.swagger.io
 basePath: /v2
 schemes:
   - http
+consumes:
+  - application/json
+  - application/xml
 paths:
   /pets:
     post:
@@ -90,7 +93,7 @@ paths:
         - in: query
           name: status
           description: Status values that need to be considered for filter
-          required: false
+          required: true
           type: array
           items:
             type: string
@@ -108,6 +111,23 @@ paths:
         - petstore_auth:
           - write_pets
           - read_pets
+    parameters:
+      - in: query
+        name: status
+        description: Status values that need to be considered for filter
+        required: false
+        type: array
+        items:
+          type: string
+        collectionFormat: multi
+      - in: query
+        name: statusEjemplo
+        description: Status values that need to be considered for filter
+        required: false
+        type: array
+        items:
+          type: string
+        collectionFormat: multi
   /pets/findByTags:
     get:
       tags:
